@@ -81,7 +81,7 @@ public class TicTacToe {
 
         for(int i = 0; i < 3; i++) {
 
-            if(lowerCase[i] == lowerCase[i+3] && lowerCase[i+3] == lowerCase[i+6]){
+            if(lowerCase[i] == lowerCase[i+3] && lowerCase[i+3] == lowerCase[i+6]) {
 
                 winner = lowerCase[i];
                 winPos = "Row" + i;
