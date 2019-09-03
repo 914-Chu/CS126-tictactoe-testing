@@ -21,10 +21,16 @@ public class TicTacToe {
         if(length != 9) {
 
             return Evaluation.InvalidInput;
-        }else if(checkTurns(array) || checkDuplicate(array)) {
+        }else if(checkTurns(array)) {
 
             return Evaluation.UnreachableState;
-        } else if(!checkWin(array) || checkNull(array)) {
+        }else if(checkDuplicate(array)) {
+
+            return Evaluation.UnreachableState;
+        }else if(!checkWin(array)) {
+
+            return Evaluation.NoWinner;
+        }else if(checkNull(array)) {
 
             return Evaluation.NoWinner;
         }else if(checkWin(array)) {
@@ -37,21 +43,23 @@ public class TicTacToe {
 
     private static boolean checkTurns(char[] c) {
 
-        count(c);
         return(Math.abs(XCount - OCount) > 1);
     }
 
     private static boolean checkDuplicate(char[] c) {
 
-        return(checkWin(c) && winCount > 1);
+        winCount = checkCol(c) + checkRow(c) + checkDiaLeft(c) + checkDiaRight(c);
+        return(winCount > 1);
     }
 
     private static boolean checkWin(char[] c) {
 
-        return(checkCol(c) || checkRow(c) || checkDiaLeft(c) || checkDiaRight(c));
+        return(winCount == 1);
     }
 
-    private static boolean checkCol(char[] c) {
+    private static int checkCol(char[] c) {
+
+        int colCount = 0;
 
         for(int i = 0; i < 7; i+=3) {
 
@@ -59,15 +67,17 @@ public class TicTacToe {
                 if(c[i] == c[i+1] && c[i+1] == c[i+2]) {
 
                     winner = c[i];
-                    winCount++;
-                    return true;
+                    colCount++;
                 }
             }
         }
-        return false;
+
+        return colCount;
     }
 
-    private static boolean checkRow(char[] c) {
+    private static int checkRow(char[] c) {
+
+        int rowCount = 0;
 
         for(int i = 0; i < 3; i++) {
 
@@ -76,40 +86,44 @@ public class TicTacToe {
                 if (c[i] == c[i + 3] && c[i + 3] == c[i + 6]) {
 
                     winner = c[i];
-                    winCount++;
-                    return true;
+                    rowCount++;
                 }
             }
         }
-        return false;
+
+        return rowCount;
     }
 
-    private static boolean checkDiaLeft(char[] c) {
+    private static int checkDiaLeft(char[] c) {
+
+        int diaL = 0;
 
         if(checkChar(c[0])) {
 
             if(c[0] == c[4] && c[4] == c[8]) {
 
                 winner = c[0];
-                winCount++;
-                return true;
+                diaL++;
             }
         }
-        return false;
+
+        return diaL;
     }
 
-    private static boolean checkDiaRight(char[] c) {
+    private static int checkDiaRight(char[] c) {
+
+        int diaR = 0;
 
         if(checkChar(c[2])) {
 
             if(c[2] == c[4] && c[4] == c[6]) {
 
                 winner = c[2];
-                winCount++;
-                return true;
+                diaR++;
             }
         }
-        return false;
+
+        return diaR;
     }
 
     private static boolean checkNull(char[] c) {
@@ -134,7 +148,7 @@ public class TicTacToe {
 
     private static void count(char[] c) {
 
-        for(int i = 0; i < 9; i++) {
+        for(int i = 0; i < c.length; i++) {
 
             if(c[i] == 'x') XCount++;
             else if(c[i] == 'o') OCount++;
