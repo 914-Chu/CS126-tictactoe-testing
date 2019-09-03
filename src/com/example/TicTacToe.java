@@ -7,16 +7,11 @@ public class TicTacToe {
     private static int XCount = 0;
     private static int OCount = 0;
 
-    public TicTacToe() {
-
-    }
-
     public static Evaluation evaluateBoard(String boardState) {
 
         char[] array = boardState.toLowerCase().toCharArray();
         int length = boardState.length();
         count(array);
-
 
         if(length != 9) {
 

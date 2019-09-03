@@ -49,6 +49,11 @@ public class TicTacToeTest {
     }
 
     @Test
+    public void duplicateCross() throws Exception {
+        assertEquals(Evaluation.UnreachableState, TicTacToe.evaluateBoard("XOXOOOXOX"));
+    }
+
+    @Test
     public void simpleNoWinnerBoard() throws Exception {
         assertEquals(Evaluation.NoWinner, TicTacToe.evaluateBoard("O...X.X.."));
     }
@@ -56,6 +61,11 @@ public class TicTacToeTest {
     @Test
     public void emptyBoardWithOtherSymbols() throws Exception {
         assertEquals(Evaluation.NoWinner, TicTacToe.evaluateBoard("n2siEl!d-"));
+    }
+
+    @Test
+    public void noWinnerCaseInsensitive() throws Exception {
+        assertEquals(Evaluation.NoWinner, TicTacToe.evaluateBoard("O9.i.Xx.o"));
     }
 
     @Test
