@@ -14,6 +14,11 @@ public class TicTacToeTest {
     }
 
     @Test
+    public void outOfBoundary() throws Exception {
+        assertEquals(Evaluation.InvalidInput, TicTacToe.evaluateBoard("O...X.X..."));
+    }
+
+    @Test
     public void name() {
     }
 }

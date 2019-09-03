@@ -1,10 +1,8 @@
 package com.example;
-import java.util.*;
 
 public class TicTacToe {
 
     private static char winner;
-    private static char[] array;
     private static int XCount = 0;
     private static int OCount = 0;
 
@@ -14,16 +12,15 @@ public class TicTacToe {
 
     public static Evaluation evaluateBoard(String boardState) {
 
-        array = boardState.toLowerCase().toCharArray();
+        char[] array = boardState.toLowerCase().toCharArray();
         int length = boardState.length();
-        boolean result = checkWin(array);
         count(array);
 
 
-        if(length > 9 || length < 0) {
+        if(length > 9) {
 
             return Evaluation.InvalidInput;
-        }else if(!checkReach(array)) {
+        }else if(checkReach()) {
 
             return Evaluation.UnreachableState;
         } else if(!checkWin(array) || checkNull(array)) {
@@ -37,18 +34,14 @@ public class TicTacToe {
         return null;
     }
 
-    private static boolean checkReach(char[] c) {
+    private static boolean checkReach() {
 
-        if(Math.abs(XCount - OCount) > 1) return false;
-        else return true;
+        return(Math.abs(XCount - OCount) > 1);
     }
 
     private static boolean checkWin(char[] c) {
 
-        if(checkCol(c) || checkRow(c) || checkDia(c)) {
-
-            return true;
-        }else return false;
+        return(checkCol(c) || checkRow(c) || checkDia(c));
     }
 
     private static boolean checkCol(char[] c) {
@@ -119,8 +112,7 @@ public class TicTacToe {
 
     private static boolean checkChar(char c) {
 
-        if(c == 'x' || c == 'o') return true;
-        else return false;
+        return (c == 'x' || c == 'o');
     }
 
     private static void count(char[] c) {
