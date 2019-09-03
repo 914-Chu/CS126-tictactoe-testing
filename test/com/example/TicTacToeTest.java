@@ -44,12 +44,12 @@ public class TicTacToeTest {
     }
 
     @Test
-    public void duplicateDiagonal() throws Exception {
+    public void duplicateDiagonalWinner() throws Exception {
         assertEquals(Evaluation.UnreachableState, TicTacToe.evaluateBoard("XOXOXOXOX"));
     }
 
     @Test
-    public void duplicateCross() throws Exception {
+    public void duplicateCrossWinner() throws Exception {
         assertEquals(Evaluation.UnreachableState, TicTacToe.evaluateBoard("XOXOOOXOX"));
     }
 
