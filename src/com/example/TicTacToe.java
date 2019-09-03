@@ -3,6 +3,7 @@ package com.example;
 public class TicTacToe {
 
     private static char winner;
+    private static int winCount = 0;
     private static int XCount = 0;
     private static int OCount = 0;
 
@@ -17,10 +18,10 @@ public class TicTacToe {
         count(array);
 
 
-        if(length > 9) {
+        if(length != 9) {
 
             return Evaluation.InvalidInput;
-        }else if(checkReach()) {
+        }else if(checkTurns(array) || checkDuplicate(array)) {
 
             return Evaluation.UnreachableState;
         } else if(!checkWin(array) || checkNull(array)) {
@@ -34,14 +35,20 @@ public class TicTacToe {
         return null;
     }
 
-    private static boolean checkReach() {
+    private static boolean checkTurns(char[] c) {
 
+        count(c);
         return(Math.abs(XCount - OCount) > 1);
+    }
+
+    private static boolean checkDuplicate(char[] c) {
+
+        return(checkWin(c) && winCount > 1);
     }
 
     private static boolean checkWin(char[] c) {
 
-        return(checkCol(c) || checkRow(c) || checkDia(c));
+        return(checkCol(c) || checkRow(c) || checkDiaLeft(c) || checkDiaRight(c));
     }
 
     private static boolean checkCol(char[] c) {
@@ -52,6 +59,7 @@ public class TicTacToe {
                 if(c[i] == c[i+1] && c[i+1] == c[i+2]) {
 
                     winner = c[i];
+                    winCount++;
                     return true;
                 }
             }
@@ -68,6 +76,7 @@ public class TicTacToe {
                 if (c[i] == c[i + 3] && c[i + 3] == c[i + 6]) {
 
                     winner = c[i];
+                    winCount++;
                     return true;
                 }
             }
@@ -75,20 +84,28 @@ public class TicTacToe {
         return false;
     }
 
-    private static boolean checkDia(char[] c) {
+    private static boolean checkDiaLeft(char[] c) {
 
         if(checkChar(c[0])) {
 
             if(c[0] == c[4] && c[4] == c[8]) {
 
                 winner = c[0];
+                winCount++;
                 return true;
             }
-        }else if(checkChar(c[2])) {
+        }
+        return false;
+    }
+
+    private static boolean checkDiaRight(char[] c) {
+
+        if(checkChar(c[2])) {
 
             if(c[2] == c[4] && c[4] == c[6]) {
 
                 winner = c[2];
+                winCount++;
                 return true;
             }
         }
