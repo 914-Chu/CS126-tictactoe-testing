@@ -16,19 +16,19 @@ public class TicTacToe {
         if(length != 9) {
 
             return Evaluation.InvalidInput;
-        }else if(checkTurns(array)) {
+        }else if(checkTurns()) {
 
             return Evaluation.UnreachableState;
         }else if(checkDuplicate(array)) {
 
             return Evaluation.UnreachableState;
-        }else if(!checkWin(array)) {
+        }else if(!checkWin()) {
 
             return Evaluation.NoWinner;
         }else if(checkNull(array)) {
 
             return Evaluation.NoWinner;
-        }else if(checkWin(array)) {
+        }else {
 
             if(winner == 'x') return Evaluation.Xwins;
             else if (winner == 'o') return Evaluation.Owins;
@@ -36,7 +36,7 @@ public class TicTacToe {
         return null;
     }
 
-    private static boolean checkTurns(char[] c) {
+    private static boolean checkTurns() {
 
         return(Math.abs(XCount - OCount) > 1);
     }
@@ -47,7 +47,7 @@ public class TicTacToe {
         return(winCount > 1);
     }
 
-    private static boolean checkWin(char[] c) {
+    private static boolean checkWin() {
 
         return(winCount == 1);
     }
@@ -143,10 +143,10 @@ public class TicTacToe {
 
     private static void count(char[] c) {
 
-        for(int i = 0; i < c.length; i++) {
+        for(char s : c) {
 
-            if(c[i] == 'x') XCount++;
-            else if(c[i] == 'o') OCount++;
+            if(s == 'x') XCount++;
+            else if(s == 'o') OCount++;
         }
     }
 

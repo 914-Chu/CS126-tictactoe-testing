@@ -80,7 +80,7 @@ public class TicTacToeTest {
 
     @Test
     public void XWinsDiaLeft() throws Exception {
-        assertEquals(Evaluation.Xwins, TicTacToe.evaluateBoard("XO..XOXOX"));
+        assertEquals(Evaluation.Xwins, TicTacToe.evaluateBoard("XO..XO.OX"));
     }
 
     @Test
