@@ -44,6 +44,11 @@ public class TicTacToeTest {
     }
 
     @Test
+    public void duplicateDiagonal() throws Exception {
+        assertEquals(Evaluation.UnreachableState, TicTacToe.evaluateBoard("XOXOXOXOX"));
+    }
+
+    @Test
     public void simpleNoWinnerBoard() throws Exception {
         assertEquals(Evaluation.NoWinner, TicTacToe.evaluateBoard("O...X.X.."));
     }
